@@ -7,6 +7,10 @@ Namespace Tenma
     Partial Public Class Commands
         Public Shared Function SetVoltage(conn As SerialPort, voltageSetting As VoltageWrite) As Result(Of Decimal, String)
             Return OpenConnection(conn).
+                Assert(
+                    Function(unused) voltageSetting.CheckVoltageBetweenMinMax(),
+                    Function(unused) $"Voltage {voltageSetting.Voltage}V not between min max"
+                ).
                 AndThen(Function(unused) SendData(conn, voltageSetting)).
                 Apply(Sub(unused) Threading.Thread.Sleep(20)).
                 AndThen(Function(innerConn) ReadVoltage(
