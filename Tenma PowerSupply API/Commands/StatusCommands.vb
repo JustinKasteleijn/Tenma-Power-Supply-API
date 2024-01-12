@@ -1,7 +1,6 @@
 ﻿Imports System.IO.Ports
 Imports FunctionalExtensions.Functional
-Imports Tenma_PowerSupply_API.Tenma.Current
-Imports Tenma_PowerSupply_API.Tenma.Status
+Imports Tenma_PowerSupply_API.Tenma.Device
 
 Namespace Tenma
     Partial Public Class Commands
@@ -10,8 +9,8 @@ Namespace Tenma
             Return OpenConnection(conn).
                 AndThen(Function(unused) SendData(conn, New GetDeviceStatus())).
                 Apply(Sub(unused) Threading.Thread.Sleep(20)).
-                AndThen(Function(innerConn) ReadDataWithTimeout(
-                            innerConn,
+                AndThen(Function(unused) ReadDataWithTimeout(
+                            conn,
                             New Timeout With {
                                 .TotalMilliseconds = 250,
                                 .Interval = 50

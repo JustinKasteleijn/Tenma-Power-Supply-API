@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Status
+    Namespace Device
         Public Structure GetDeviceStatus
             Implements TenmaSerializable
 
@@ -25,11 +25,6 @@
             Independent = 0
             TrackingSeries = 1
             TrackingParallel = 11
-        End Enum
-
-        Public Enum PowerState As Byte
-            OFF = 0
-            [ON] = 1
         End Enum
 
         Public Enum Lock As Byte

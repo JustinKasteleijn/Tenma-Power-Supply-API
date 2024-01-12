@@ -31,9 +31,8 @@ Namespace Tenma
                             .TotalMilliseconds = 250
                         }
                     )).
-                    Map(Function(data) New Tuple(Of SerialPort, Result(Of Decimal, String))(conn, ParseData(data))).
-                    Apply(Sub(connAndData) connAndData.Item1.Close()).
-                    AndThen(Function(connAndData) connAndData.Item2)
+                    Apply(Sub(unused) conn.Close()).
+                    AndThen(Function(data) Utils.FromBytesToDecimal(data))
 
         End Function
 
@@ -44,12 +43,6 @@ Namespace Tenma
         Public Shared Function ReadActualVoltage(conn As SerialPort, voltageSetting As VoltageReadActual) As Result(Of Decimal, String)
             Return ReadVoltage(conn, voltageSetting)
 
-        End Function
-
-        Private Shared Function ParseData(data As Byte()) As Result(Of Decimal, String)
-            Return Utils.StringToDecimal(
-                data.Aggregate("", Function(acc, b) acc & ChrW(b))
-            )
         End Function
     End Class
 End Namespace

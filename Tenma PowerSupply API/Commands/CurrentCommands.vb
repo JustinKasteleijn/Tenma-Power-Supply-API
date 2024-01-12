@@ -31,9 +31,8 @@ Namespace Tenma
                             .TotalMilliseconds = 250
                         }
                     )).
-                    Map(Function(data) New Tuple(Of SerialPort, Result(Of Decimal, String))(conn, ParseData(data))).
-                    Apply(Sub(connAndData) connAndData.Item1.Close()).
-                    AndThen(Function(connAndData) connAndData.Item2)
+                    Apply(Sub(unused) conn.Close()).
+                    AndThen(Function(data) Utils.FromBytesToDecimal(data))
 
         End Function
 
