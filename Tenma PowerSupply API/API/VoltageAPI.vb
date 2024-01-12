@@ -1,9 +1,9 @@
 Imports System.IO.Ports
 Imports FunctionalExtensions.Functional
-Imports Tenma_PowerSupply_API.Tenma.Voltage
+Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
-    Partial Public Class Commands
+    Partial Public Class API
         Public Shared Function SetVoltage(conn As SerialPort, voltageSetting As WriteVoltageCommand) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                 Assert(

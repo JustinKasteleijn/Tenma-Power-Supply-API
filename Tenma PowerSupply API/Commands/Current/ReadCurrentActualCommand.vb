@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Current
+    Namespace Commands
         Public Structure ReadCurrentActualCommand
             Implements TenmaSerializable
             Public Channel As Channels

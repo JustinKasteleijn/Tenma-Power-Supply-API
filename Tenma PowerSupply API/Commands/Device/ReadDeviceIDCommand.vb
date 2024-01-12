@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Device
+    Namespace Commands
         Public Structure ReadDeviceIDCommand
             Implements TenmaSerializable
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand

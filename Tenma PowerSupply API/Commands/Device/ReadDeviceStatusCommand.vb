@@ -1,6 +1,6 @@
 ﻿Namespace Tenma
-    Namespace Device
-        Public Structure GetDeviceStatus
+    Namespace Commands
+        Public Structure ReadDeviceStatusCommand
             Implements TenmaSerializable
 
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand

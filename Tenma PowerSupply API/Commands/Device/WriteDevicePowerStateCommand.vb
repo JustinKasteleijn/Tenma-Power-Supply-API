@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Device
+    Namespace Commands
         Public Structure WriteDevicePowerStateCommand
             Implements TenmaSerializable
             Public State As Output

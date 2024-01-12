@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Current
+    Namespace Commands
         Public Structure WriteCurrentCommand
             Implements TenmaSerializable
             Public Channel As Channels

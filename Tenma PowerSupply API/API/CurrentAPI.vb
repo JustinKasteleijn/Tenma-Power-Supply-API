@@ -1,9 +1,10 @@
 ﻿Imports System.IO.Ports
 Imports FunctionalExtensions.Functional
+Imports Tenma_PowerSupply_API.Tenma.Commands
 Imports Tenma_PowerSupply_API.Tenma.Current
 
 Namespace Tenma
-    Partial Public Class Commands
+    Partial Public Class API
         Public Shared Function SetCurrent(conn As SerialPort, currentSetting As WriteCurrentCommand) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                 Assert(
