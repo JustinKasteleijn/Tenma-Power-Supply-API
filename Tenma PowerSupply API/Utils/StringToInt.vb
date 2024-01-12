@@ -1,5 +1,4 @@
-﻿Imports System.Globalization
-Imports FunctionalExtensions.Functional
+﻿Imports FunctionalExtensions.Functional
 
 Namespace Tenma
     Partial Public Class Utils

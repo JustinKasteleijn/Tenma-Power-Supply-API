@@ -1,7 +1,6 @@
 ﻿Imports System.IO.Ports
 Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Commands
-Imports Tenma_PowerSupply_API.Tenma.Current
 
 Namespace Tenma
     Partial Public Class API
