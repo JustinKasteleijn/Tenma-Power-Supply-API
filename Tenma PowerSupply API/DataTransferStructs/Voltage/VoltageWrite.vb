@@ -13,8 +13,7 @@
             End Function
 
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
-                Const VSetCommand As String = "VSET"
-                Return $"{VSetCommand}{CInt(Channel)}:{Utils.FormatDecimalAsString(Voltage, 2)}"
+                Return $"VSET{CInt(Channel)}:{Utils.FormatDecimalAsString(Voltage, 2)}"
             End Function
         End Structure
     End Namespace

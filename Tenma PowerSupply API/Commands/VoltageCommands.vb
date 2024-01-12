@@ -12,16 +12,16 @@ Namespace Tenma
                 ).
                 AndThen(Function(unused) SendData(conn, voltageSetting)).
                 Apply(Sub(unused) Threading.Thread.Sleep(20)).
-                AndThen(Function(innerConn) ReadVoltage(
+                AndThen(Function(innerConn) ReadVoltageFromSettings(
                             innerConn,
-                            New VoltageRead With {
+                            New VoltageReadFromSettings With {
                                 .Channel = voltageSetting.Channel
                             }
                         )
                     )
         End Function
 
-        Public Shared Function ReadVoltage(conn As SerialPort, voltageSetting As VoltageRead) As Result(Of Decimal, String)
+        Private Shared Function ReadVoltage(Of T As TenmaSerializable)(conn As SerialPort, voltageSetting As T) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                     AndThen(Function(unused) SendData(conn, voltageSetting)).
                     AndThen(Function(innerConn) ReadDataWithTimeout(
@@ -34,6 +34,15 @@ Namespace Tenma
                     Map(Function(data) New Tuple(Of SerialPort, Result(Of Decimal, String))(conn, ParseData(data))).
                     Apply(Sub(connAndData) connAndData.Item1.Close()).
                     AndThen(Function(connAndData) connAndData.Item2)
+
+        End Function
+
+        Public Shared Function ReadVoltageFromSettings(conn As SerialPort, voltageSetting As VoltageReadFromSettings) As Result(Of Decimal, String)
+            Return ReadVoltage(conn, voltageSetting)
+        End Function
+
+        Public Shared Function ReadActualVoltage(conn As SerialPort, voltageSetting As VoltageReadActual) As Result(Of Decimal, String)
+            Return ReadVoltage(conn, voltageSetting)
 
         End Function
 

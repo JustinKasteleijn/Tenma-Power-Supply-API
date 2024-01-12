@@ -1,12 +1,11 @@
 ﻿Namespace Tenma
     Namespace Voltage
-        Public Class VoltageRead
+        Public Structure VoltageReadFromSettings
             Implements TenmaSerializable
             Public Channel As Channels
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
-                Dim command As String = $"VSET{CInt(Channel)}?"
-                Return command
+                Return $"VSET{CInt(Channel)}?"
             End Function
-        End Class
+        End Structure
     End Namespace
 End Namespace
