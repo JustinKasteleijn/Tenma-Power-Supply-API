@@ -1,27 +1,27 @@
-Imports System.IO.Ports
+﻿Imports System.IO.Ports
 Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Voltage
 
 Namespace Tenma
     Partial Public Class Commands
-        Public Shared Function SetVoltage(conn As SerialPort, voltageSetting As VoltageWrite) As Result(Of Decimal, String)
+        Public Shared Function SetCurrent(conn As SerialPort, currentSetting As CurrentWrite) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                 Assert(
-                    Function(unused) voltageSetting.CheckVoltageBetweenMinMax(),
-                    Function(unused) $"Voltage {voltageSetting.Voltage}V not between min: {VoltageWrite.MIN}V max: {VoltageWrite.MAX}V"
+                    Function(unused) currentSetting.CheckVoltageBetweenMinMax(),
+                    Function(unused) $"Voltage {currentSetting.Current}A not between min: {CurrentWrite.MIN}A max: {CurrentWrite.MAX}A"
                 ).
-                AndThen(Function(unused) SendData(conn, voltageSetting)).
+                AndThen(Function(unused) SendData(conn, currentSetting)).
                 Apply(Sub(unused) Threading.Thread.Sleep(20)).
-                AndThen(Function(innerConn) ReadVoltage(
+                AndThen(Function(innerConn) ReadCurrent(
                             innerConn,
-                            New VoltageRead With {
-                                .Channel = voltageSetting.Channel
+                            New CurrentRead With {
+                                .Channel = currentSetting.Channel
                             }
                         )
                     )
         End Function
 
-        Public Shared Function ReadVoltage(conn As SerialPort, voltageSetting As VoltageRead) As Result(Of Decimal, String)
+        Public Shared Function ReadCurrent(conn As SerialPort, voltageSetting As CurrentRead) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                     AndThen(Function(unused) SendData(conn, voltageSetting)).
                     AndThen(Function(innerConn) ReadDataWithTimeout(
@@ -35,12 +35,6 @@ Namespace Tenma
                     Apply(Sub(connAndData) connAndData.Item1.Close()).
                     AndThen(Function(connAndData) connAndData.Item2)
 
-        End Function
-
-        Private Shared Function ParseData(data As Byte()) As Result(Of Decimal, String)
-            Return Utils.StringToDecimal(
-                data.Aggregate("", Function(acc, b) acc & ChrW(b))
-            )
         End Function
     End Class
 End Namespace
