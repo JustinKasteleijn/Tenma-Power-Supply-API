@@ -10,7 +10,7 @@ Namespace Tenma
         End Structure
 
         Public Function ReadDataWithTimeout(conn As SerialPort, timeout As Timeout) As Result(Of Byte(), String)
-            While (timeout.TotalMilliseconds - timeout.Interval) > 0
+                While (timeout.TotalMilliseconds - timeout.Interval) > 0
                 If conn.DataAvailable() Then
                     Dim buffer(conn.BytesToRead - 1) As Byte
                     conn.Read(buffer, 0, conn.BytesToRead)
