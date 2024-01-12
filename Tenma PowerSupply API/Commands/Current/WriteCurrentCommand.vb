@@ -1,19 +1,19 @@
 ﻿Namespace Tenma
-    Namespace Voltage
-        Public Structure VoltageWrite
+    Namespace Current
+        Public Structure WriteCurrentCommand
             Implements TenmaSerializable
             Public Channel As Channels
-            Public Voltage As Decimal
+            Public Current As Decimal
 
-            Public Const MIN As Decimal = 0.00
-            Public Const MAX As Decimal = 61.0
+            Const MIN As Decimal = 0.000
+            Const MAX As Decimal = 3.0
 
             Public Function CheckVoltageBetweenMinMax() As Boolean
-                Return Voltage >= MIN And Voltage <= MAX
+                Return Current >= MIN And Current <= MAX
             End Function
 
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
-                Return $"VSET{CInt(Channel)}:{Utils.FormatDecimalAsString(Voltage, 2)}"
+                Return $"ISET{CInt(Channel)}:{Utils.FormatDecimalAsString(Current, 3)}"
             End Function
         End Structure
     End Namespace

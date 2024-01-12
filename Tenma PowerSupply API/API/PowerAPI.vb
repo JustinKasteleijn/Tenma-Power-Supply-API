@@ -3,7 +3,7 @@ Imports FunctionalExtensions.Functional
 
 Namespace Tenma
     Partial Public Class Commands
-        Public Shared Function SetPowerState(conn As SerialPort, state As Device.DevicePowerState) As Result(Of PowerState, String)
+        Public Shared Function SetPowerState(conn As SerialPort, state As Device.WriteDevicePowerStateCommand) As Result(Of Output, String)
             Return OpenConnection(conn).
                         AndThen(Function(unused) SendData(conn, state)).
                         Apply(Sub(unused) Threading.Thread.Sleep(20)).
@@ -11,7 +11,7 @@ Namespace Tenma
                         Map(Function(deviceStatus) deviceStatus.Output)
         End Function
 
-        Public Shared Function GetPowerstate(conn As SerialPort) As Result(Of PowerState, String)
+        Public Shared Function GetPowerstate(conn As SerialPort) As Result(Of Output, String)
             Return ReadStatus(conn).
                 Map(Function(status) status.Output)
         End Function

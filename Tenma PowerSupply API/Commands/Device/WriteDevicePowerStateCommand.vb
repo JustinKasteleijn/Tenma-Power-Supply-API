@@ -1,11 +1,11 @@
 ﻿Namespace Tenma
-    Namespace Current
-        Public Structure CurrentReadActual
+    Namespace Device
+        Public Structure WriteDevicePowerStateCommand
             Implements TenmaSerializable
-            Public Channel As Channels
+            Public State As Output
 
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
-                Return $"IOUT{CInt(Channel)}?"
+                Return $"OUT{CInt(State)}"
             End Function
         End Structure
     End Namespace

@@ -1,12 +1,12 @@
 ﻿Namespace Tenma
     Namespace Device
-        Public Structure DevicePowerState
+        Public Structure GetDeviceStatus
             Implements TenmaSerializable
-            Public State As PowerState
 
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
-                Return $"OUT{CInt(State)}"
+                Return "STATUS?"
             End Function
         End Structure
+
     End Namespace
 End Namespace

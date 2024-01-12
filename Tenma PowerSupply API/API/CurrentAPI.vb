@@ -4,17 +4,17 @@ Imports Tenma_PowerSupply_API.Tenma.Current
 
 Namespace Tenma
     Partial Public Class Commands
-        Public Shared Function SetCurrent(conn As SerialPort, currentSetting As CurrentWrite) As Result(Of Decimal, String)
+        Public Shared Function SetCurrent(conn As SerialPort, currentSetting As WriteCurrentCommand) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                 Assert(
                     Function(unused) currentSetting.CheckVoltageBetweenMinMax(),
-                    Function(unused) $"Voltage {currentSetting.Current}A not between min: {CurrentWrite.MIN}A max: {CurrentWrite.MAX}A"
+                    Function(unused) $"Voltage {currentSetting.Current}A not between min: {WriteCurrentCommand.MIN}A max: {WriteCurrentCommand.MAX}A"
                 ).
                 AndThen(Function(unused) SendData(conn, currentSetting)).
                 Apply(Sub(unused) Threading.Thread.Sleep(20)).
                 AndThen(Function(innerConn) ReadCurrentFromSettings(
                             innerConn,
-                            New CurrentReadFromSettings With {
+                            New ReadCurrentFromSettingsCommand With {
                                 .Channel = currentSetting.Channel
                             }
                         )
@@ -36,12 +36,12 @@ Namespace Tenma
 
         End Function
 
-        Public Shared Function ReadCurrentFromSettings(conn As SerialPort, currentSetting As CurrentReadFromSettings) As Result(Of Decimal, String)
+        Public Shared Function ReadCurrentFromSettings(conn As SerialPort, currentSetting As ReadCurrentFromSettingsCommand) As Result(Of Decimal, String)
             Return ReadVoltage(conn, currentSetting)
 
         End Function
 
-        Public Shared Function ReadActualCurrent(conn As SerialPort, currentSetting As CurrentReadActual) As Result(Of Decimal, String)
+        Public Shared Function ReadActualCurrent(conn As SerialPort, currentSetting As ReadCurrentActualCommand) As Result(Of Decimal, String)
             Return ReadVoltage(conn, currentSetting)
 
         End Function

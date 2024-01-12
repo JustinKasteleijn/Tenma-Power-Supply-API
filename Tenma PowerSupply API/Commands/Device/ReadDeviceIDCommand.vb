@@ -1,11 +1,9 @@
 ﻿Namespace Tenma
-    Namespace Voltage
-        Public Structure VoltageReadActual
+    Namespace Device
+        Public Structure ReadDeviceIDCommand
             Implements TenmaSerializable
-            Public Channel As Channels
-
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
-                Return $"VOUT{CInt(Channel)}?"
+                Return "*IDN?"
             End Function
         End Structure
     End Namespace
