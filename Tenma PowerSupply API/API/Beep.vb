@@ -4,7 +4,7 @@ Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
     Partial Public Class API
-        Public Shared Function Beep(conn As SerialPort, command As WriteBeepStateCommand) As Result(Of Output, String)
+        Private Shared Function WriteBeep(conn As SerialPort, command As WriteBeepStateCommand) As Result(Of State, String)
             Return OpenConnection(conn).
                 AndThen(Function(unused) SendData(conn, command)).
                 AndThen(Function(unused) ReadStatus(conn)).

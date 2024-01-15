@@ -4,7 +4,7 @@ Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
     Partial Public Class API
-        Public Shared Function SetCurrent(conn As SerialPort, currentSetting As WriteCurrentCommand) As Result(Of Decimal, String)
+        Private Shared Function SetCurrent(conn As SerialPort, currentSetting As WriteCurrentCommand) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                 Assert(
                     Function(unused) currentSetting.CheckVoltageBetweenMinMax(),
@@ -24,7 +24,7 @@ Namespace Tenma
                     )
         End Function
 
-        Public Shared Function ReadCurrent(Of T As TenmaSerializable)(conn As SerialPort, currentSetting As T) As Result(Of Decimal, String)
+        Private Shared Function ReadCurrent(Of T As TenmaSerializable)(conn As SerialPort, currentSetting As T) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                     AndThen(Function(unused) SendData(conn, currentSetting)).
                     AndThen(Function(innerConn) ReadDataWithTimeout(
@@ -39,12 +39,12 @@ Namespace Tenma
 
         End Function
 
-        Public Shared Function ReadCurrentFromSettings(conn As SerialPort, currentSetting As ReadCurrentFromSettingsCommand) As Result(Of Decimal, String)
+        Private Shared Function ReadCurrentFromSettings(conn As SerialPort, currentSetting As ReadCurrentFromSettingsCommand) As Result(Of Decimal, String)
             Return ReadVoltage(conn, currentSetting)
 
         End Function
 
-        Public Shared Function ReadActualCurrent(conn As SerialPort, currentSetting As ReadCurrentActualCommand) As Result(Of Decimal, String)
+        Private Shared Function ReadActualCurrent(conn As SerialPort, currentSetting As ReadCurrentActualCommand) As Result(Of Decimal, String)
             Return ReadVoltage(conn, currentSetting)
 
         End Function

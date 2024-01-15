@@ -4,9 +4,9 @@
             Public ChannelOneMode As ChannelMode
             Public ChannelTwoMode As ChannelMode
             Public Tracking As Tracking
-            Public Beep As Output
+            Public Beep As State
             Public Lock As Lock
-            Public Output As Output
+            Public Output As State
         End Structure
 
     End Module

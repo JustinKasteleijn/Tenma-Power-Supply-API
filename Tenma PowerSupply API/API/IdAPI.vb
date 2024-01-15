@@ -4,7 +4,7 @@ Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
     Partial Public Class API
-        Public Shared Function ReadDeviceID(conn As SerialPort) As Result(Of DeviceID, String)
+        Private Shared Function ReadDeviceID(conn As SerialPort) As Result(Of DeviceID, String)
             Return OpenConnection(conn).
                         AndThen(Function(unused) SendData(conn, New ReadDeviceIDCommand())).
                         AndThen(Function(unused) ReadDataWithTimeout(

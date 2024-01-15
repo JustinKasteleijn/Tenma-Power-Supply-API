@@ -3,8 +3,8 @@ Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
-    Partial Public Class API
-        Public Shared Function SetVoltage(conn As SerialPort, voltageSetting As WriteVoltageCommand) As Result(Of Decimal, String)
+    Partial Friend Module RemoteControlFunctions
+        Friend Function SetVoltage(conn As SerialPort, voltageSetting As WriteVoltageCommand) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                 Assert(
                     Function(unused) voltageSetting.CheckVoltageBetweenMinMax(),
@@ -21,7 +21,7 @@ Namespace Tenma
                     )
         End Function
 
-        Private Shared Function ReadVoltage(Of T As TenmaSerializable)(conn As SerialPort, voltageSetting As T) As Result(Of Decimal, String)
+        Private Function ReadVoltage(Of T As TenmaSerializable)(conn As SerialPort, voltageSetting As T) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                     AndThen(Function(unused) SendData(conn, voltageSetting)).
                     AndThen(Function(innerConn) ReadDataWithTimeout(
@@ -36,13 +36,12 @@ Namespace Tenma
 
         End Function
 
-        Public Shared Function ReadVoltageFromSettings(conn As SerialPort, voltageSetting As ReadVoltageFromSettingsCommand) As Result(Of Decimal, String)
+        Friend Function ReadVoltageFromSettings(conn As SerialPort, voltageSetting As ReadVoltageFromSettingsCommand) As Result(Of Decimal, String)
             Return ReadVoltage(conn, voltageSetting)
         End Function
 
-        Public Shared Function ReadActualVoltage(conn As SerialPort, voltageSetting As ReadVoltageActualCommand) As Result(Of Decimal, String)
+        Friend Function ReadActualVoltage(conn As SerialPort, voltageSetting As ReadVoltageActualCommand) As Result(Of Decimal, String)
             Return ReadVoltage(conn, voltageSetting)
-
         End Function
-    End Class
+    End Module
 End Namespace

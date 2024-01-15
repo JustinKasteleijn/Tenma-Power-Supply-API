@@ -5,7 +5,7 @@ Imports Tenma_PowerSupply_API.Tenma.Commands
 Namespace Tenma
     Partial Public Class API
 
-        Public Shared Function ReadStatus(conn As SerialPort) As Result(Of DeviceStatus, String)
+        Private Shared Function ReadStatus(conn As SerialPort) As Result(Of DeviceStatus, String)
             Return OpenConnection(conn).
                 AndThen(Function(unused) SendData(conn, New ReadDeviceStatusCommand())).
                 Apply(Sub(unused) Threading.Thread.Sleep(20)).

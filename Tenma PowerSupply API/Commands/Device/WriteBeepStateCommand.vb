@@ -2,7 +2,7 @@
     Namespace Commands
         Public Structure WriteBeepStateCommand
             Implements TenmaSerializable
-            Public State As Output
+            Public State As State
 
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
                 Return $"OCP{CInt(State)}"

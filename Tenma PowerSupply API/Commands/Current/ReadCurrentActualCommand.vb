@@ -1,6 +1,6 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure ReadCurrentActualCommand
+        Friend Structure ReadCurrentActualCommand
             Implements TenmaSerializable
             Public Channel As Channels
 
