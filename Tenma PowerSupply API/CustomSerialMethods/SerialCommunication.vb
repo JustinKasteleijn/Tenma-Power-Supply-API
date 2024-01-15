@@ -1,6 +1,6 @@
-﻿Imports FunctionalExtensions.Functional
-Imports System.IO.Ports
+﻿Imports System.IO.Ports
 Imports System.Threading
+Imports FunctionalExtensions.Functional
 
 Namespace Tenma
     Friend Module SerialCommunication
