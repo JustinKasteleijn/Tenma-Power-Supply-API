@@ -26,7 +26,6 @@ Namespace Tenma
             )
         End Function
 
-
         Public Shared Function ReadPowerstate(conn As SerialPort) As Result(Of Output, String)
             Return ReadStatus(conn).
                 Map(Function(status) status.Output)

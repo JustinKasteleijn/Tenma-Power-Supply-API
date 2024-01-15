@@ -11,7 +11,10 @@ Namespace Tenma
                     Function(unused) $"Voltage {currentSetting.Current}A not between min: {WriteCurrentCommand.MIN}A max: {WriteCurrentCommand.MAX}A"
                 ).
                 AndThen(Function(unused) SendData(conn, currentSetting)).
-                Apply(Sub(unused) Threading.Thread.Sleep(20)).
+                Apply(Sub(unused)
+                          conn.Close()
+                          Threading.Thread.Sleep(20)
+                      End Sub).
                 AndThen(Function(innerConn) ReadCurrentFromSettings(
                             innerConn,
                             New ReadCurrentFromSettingsCommand With {
