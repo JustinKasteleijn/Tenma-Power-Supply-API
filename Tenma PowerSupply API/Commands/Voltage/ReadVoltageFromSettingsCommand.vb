@@ -1,6 +1,6 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure ReadVoltageFromSettingsCommand
+        Friend Structure ReadVoltageFromSettingsCommand
             Implements TenmaSerializable
             Public Channel As Channels
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand

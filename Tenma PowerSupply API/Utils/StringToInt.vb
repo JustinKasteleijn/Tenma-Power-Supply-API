@@ -1,8 +1,8 @@
 ﻿Imports FunctionalExtensions.Functional
 
 Namespace Tenma
-    Partial Public Class Utils
-        Public Shared Function StringToInt(value As String) As Result(Of Integer, String)
+    Partial Friend Module Utils
+        Friend Function StringToInt(value As String) As Result(Of Integer, String)
             Dim intValue As Decimal
 
             If Integer.TryParse(value, intValue) Then
@@ -11,5 +11,5 @@ Namespace Tenma
                 Return Result(Of Integer, String).Err($"Failed to parse '{value}' as Decimal.")
             End If
         End Function
-    End Class
+    End Module
 End Namespace

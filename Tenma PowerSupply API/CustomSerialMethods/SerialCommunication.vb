@@ -3,14 +3,14 @@ Imports System.IO.Ports
 Imports System.Threading
 
 Namespace Tenma
-    Public Module SerialCommunication
-        Public Structure Timeout
+    Friend Module SerialCommunication
+        Friend Structure Timeout
             Public TotalMilliseconds As Integer
             Public Interval As Integer
         End Structure
 
-        Public Function ReadDataWithTimeout(conn As SerialPort, timeout As Timeout) As Result(Of Byte(), String)
-                While (timeout.TotalMilliseconds - timeout.Interval) > 0
+        Friend Function ReadDataWithTimeout(conn As SerialPort, timeout As Timeout) As Result(Of Byte(), String)
+            While (timeout.TotalMilliseconds - timeout.Interval) > 0
                 If conn.DataAvailable() Then
                     Dim buffer(conn.BytesToRead - 1) As Byte
                     conn.Read(buffer, 0, conn.BytesToRead)
@@ -22,7 +22,7 @@ Namespace Tenma
             Return Result(Of Byte(), String).Err($"Timeout occurred while reading data from port {conn.PortName}. Please ensure that the peripheral device is powered on and connected. Additionally, consider increasing the timeout value to allow the peripheral more time to process the data!")
         End Function
 
-        Public Function SendData(ByRef conn As SerialPort, data As TenmaSerializable) As Result(Of SerialPort, String)
+        Friend Function SendData(ByRef conn As SerialPort, data As TenmaSerializable) As Result(Of SerialPort, String)
             Try
                 conn.Write(data.ToCommand())
                 Return Result(Of SerialPort, String).Ok(conn)
@@ -35,7 +35,7 @@ Namespace Tenma
             End Try
         End Function
 
-        Public Function OpenConnection(ByRef connection As SerialPort) As Result(Of SerialPort, String)
+        Friend Function OpenConnection(ByRef connection As SerialPort) As Result(Of SerialPort, String)
             If connection.IsOpen Then
                 Return Result(Of SerialPort, String).Ok(connection)
             End If

@@ -1,6 +1,6 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure WriteCurrentCommand
+        Friend Structure WriteCurrentCommand
             Implements TenmaSerializable
             Public Channel As Channels
             Public Current As Decimal

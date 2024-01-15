@@ -1,6 +1,6 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure ReadVoltageActualCommand
+        Friend Structure ReadVoltageActualCommand
             Implements TenmaSerializable
             Public Channel As Channels
 

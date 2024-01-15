@@ -1,6 +1,6 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure WriteVoltageCommand
+        Friend Structure WriteVoltageCommand
             Implements TenmaSerializable
             Public Channel As Channels
             Public Voltage As Decimal

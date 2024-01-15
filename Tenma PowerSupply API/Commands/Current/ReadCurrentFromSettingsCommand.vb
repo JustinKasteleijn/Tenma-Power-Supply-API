@@ -1,6 +1,6 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure ReadCurrentFromSettingsCommand
+        Friend Structure ReadCurrentFromSettingsCommand
             Implements TenmaSerializable
             Public Channel As Channels
             Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
