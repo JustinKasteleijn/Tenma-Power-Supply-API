@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Public Interface TenmaSerializable
+    Public Interface ITenmaSerializable
         Function ToCommand() As String
     End Interface
 End Namespace

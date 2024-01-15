@@ -1,9 +1,9 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure SaveMemorySettingCommand
-            Implements TenmaSerializable
+        Friend Structure SaveMemorySettingCommand
+            Implements ITenmaSerializable
             Public MemoryNumber As MemoryNumber
-            Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
+            Public Function ToCommand() As String Implements ITenmaSerializable.ToCommand
                 Return $"SAV{CInt(MemoryNumber)}"
             End Function
         End Structure

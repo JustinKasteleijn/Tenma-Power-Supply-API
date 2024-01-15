@@ -3,8 +3,8 @@ Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
-    Partial Public Class API
-        Private Shared Function ReadDeviceID(conn As SerialPort) As Result(Of DeviceID, String)
+    Partial Friend Module RemoteControlFunctions
+        Friend Function ReadDeviceID(conn As SerialPort) As Result(Of DeviceID, String)
             Return OpenConnection(conn).
                         AndThen(Function(unused) SendData(conn, New ReadDeviceIDCommand())).
                         AndThen(Function(unused) ReadDataWithTimeout(
@@ -36,5 +36,5 @@ Namespace Tenma
                                 }
                             End Function)
         End Function
-    End Class
+    End Module
 End Namespace

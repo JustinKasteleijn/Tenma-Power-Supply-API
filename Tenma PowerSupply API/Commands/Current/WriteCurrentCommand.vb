@@ -1,7 +1,7 @@
 ﻿Namespace Tenma
     Namespace Commands
         Friend Structure WriteCurrentCommand
-            Implements TenmaSerializable
+            Implements ITenmaSerializable
             Public Channel As Channels
             Public Current As Decimal
 
@@ -12,7 +12,7 @@
                 Return Current >= MIN And Current <= MAX
             End Function
 
-            Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
+            Public Function ToCommand() As String Implements ITenmaSerializable.ToCommand
                 Return $"ISET{CInt(Channel)}:{Utils.FormatDecimalAsString(Current, 3)}"
             End Function
         End Structure

@@ -1,10 +1,10 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure WriteOCPStateCommand
-            Implements TenmaSerializable
+        Friend Structure WriteOCPStateCommand
+            Implements ITenmaSerializable
             Public State As State
 
-            Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
+            Public Function ToCommand() As String Implements ITenmaSerializable.ToCommand
                 Return $"OCP{CInt(State)}"
             End Function
         End Structure

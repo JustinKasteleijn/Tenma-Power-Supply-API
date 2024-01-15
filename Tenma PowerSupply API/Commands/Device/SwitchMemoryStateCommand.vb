@@ -1,9 +1,9 @@
 ﻿Namespace Tenma
     Namespace Commands
-        Public Structure SwitchMemoryStateCommand
-            Implements TenmaSerializable
+        Friend Structure SwitchMemoryStateCommand
+            Implements ITenmaSerializable
             Public MemoryNumber As MemoryNumber
-            Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
+            Public Function ToCommand() As String Implements ITenmaSerializable.ToCommand
                 Return $"RCL{CInt(MemoryNumber)}"
             End Function
         End Structure

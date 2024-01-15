@@ -23,6 +23,15 @@
                        Me.Version = other.Version AndAlso
                        Me.SerialNumber = other.SerialNumber
             End Function
+
+            Public Overrides Function GetHashCode() As Integer
+                Dim hash As Integer = 17
+                hash = hash * 23 + If(Me.Manufacturer IsNot Nothing, Me.Manufacturer.GetHashCode(), 0)
+                hash = hash * 23 + If(Me.Model IsNot Nothing, Me.Model.GetHashCode(), 0)
+                hash = hash * 23 + Me.Version.GetHashCode()
+                hash = hash * 23 + Me.SerialNumber.GetHashCode()
+                Return hash
+            End Function
         End Structure
     End Module
 End Namespace

@@ -11,7 +11,6 @@ Namespace Tenma
                     Function(unused) $"Voltage {voltageSetting.Voltage}V not between min: {WriteVoltageCommand.MIN}V max: {WriteVoltageCommand.MAX}V"
                 ).
                 AndThen(Function(unused) SendData(conn, voltageSetting)).
-                Apply(Sub(unused) Threading.Thread.Sleep(20)).
                 AndThen(Function(innerConn) ReadVoltageFromSettings(
                             innerConn,
                             New ReadVoltageFromSettingsCommand With {
@@ -21,7 +20,7 @@ Namespace Tenma
                     )
         End Function
 
-        Private Function ReadVoltage(Of T As TenmaSerializable)(conn As SerialPort, voltageSetting As T) As Result(Of Decimal, String)
+        Private Function ReadVoltage(Of T As ITenmaSerializable)(conn As SerialPort, voltageSetting As T) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                     AndThen(Function(unused) SendData(conn, voltageSetting)).
                     AndThen(Function(innerConn) ReadDataWithTimeout(

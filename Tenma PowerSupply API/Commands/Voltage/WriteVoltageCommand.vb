@@ -1,7 +1,7 @@
 ﻿Namespace Tenma
     Namespace Commands
         Friend Structure WriteVoltageCommand
-            Implements TenmaSerializable
+            Implements ITenmaSerializable
             Public Channel As Channels
             Public Voltage As Decimal
 
@@ -12,7 +12,7 @@
                 Return Voltage >= MIN And Voltage <= MAX
             End Function
 
-            Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
+            Public Function ToCommand() As String Implements ITenmaSerializable.ToCommand
                 Return $"VSET{CInt(Channel)}:{Utils.FormatDecimalAsString(Voltage, 2)}"
             End Function
         End Structure

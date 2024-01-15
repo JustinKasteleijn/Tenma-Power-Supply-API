@@ -3,8 +3,8 @@ Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
-    Partial Public Class API
-        Private Shared Function CompatibilityTest(conn As SerialPort, id As DeviceID) As Result(Of Boolean, String)
+    Partial Friend Module RemoteControlFunctions
+        Friend Function CompatibilityTest(conn As SerialPort, id As DeviceID) As Result(Of Boolean, String)
             Return OpenConnection(conn).
                 AndThen(Function(unused) ReadDeviceID(conn)).
                 Assert(
@@ -14,10 +14,10 @@ Namespace Tenma
                 Map(Function(unused) True)
         End Function
 
-        Private Shared Function TestConnection(conn As SerialPort) As Result(Of DeviceStatus, String)
+        Friend Function TestConnection(conn As SerialPort) As Result(Of DeviceStatus, String)
             Return OpenConnection(conn).
                     AndThen(Function(unused) ReadStatus(conn)).
                     Apply(Sub(unused) conn.Close())
         End Function
-    End Class
+    End Module
 End Namespace

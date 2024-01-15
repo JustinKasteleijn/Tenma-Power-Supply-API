@@ -1,13 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>Tenma_PowerSupply_API</RootNamespace>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>Tenma_PowerSupply_API</RootNamespace>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>Tenma-PowerSupply-API</PackageId>
+		<Title>Tenma PowerSupply API</Title>
+		<Version>0.0.1</Version>
+		<Authors>Justin Kasteleijn</Authors>
+		<Description>Welcome to the Tenma Power Supply API, a library for interacting with Tenma power supplies using a functional approach. This library is built using Visual Basic and Functional Extensions.</Description>
+		<Copyright>MIT</Copyright>
+		<PackageIcon>Screenshot_1.png</PackageIcon>
+		<PackageTags>Tenma; PowerSupply; VisualBasic; Functional; EasyToUse;</PackageTags>
+		<PackageReleaseNotes>First release</PackageReleaseNotes>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+		<PackageReadmeFile>docs\readme.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/JustinKasteleijn/Tenma-Power-Supply-API</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseFile>docs\license.md</PackageLicenseFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
-    <PackageReference Include="VisualBasicFunctionalExtensions" Version="1.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\..\..\Pictures\Screenshot_1.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.IO.Ports" Version="8.0.0" />
+		<PackageReference Include="VisualBasicFunctionalExtensions" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="docs\license.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Update="docs\readme.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

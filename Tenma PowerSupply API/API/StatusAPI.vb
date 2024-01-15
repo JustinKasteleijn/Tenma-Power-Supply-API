@@ -3,12 +3,10 @@ Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
-    Partial Public Class API
-
-        Private Shared Function ReadStatus(conn As SerialPort) As Result(Of DeviceStatus, String)
+    Partial Friend Module RemoteControlFunctions
+        Friend Function ReadStatus(conn As SerialPort) As Result(Of DeviceStatus, String)
             Return OpenConnection(conn).
                 AndThen(Function(unused) SendData(conn, New ReadDeviceStatusCommand())).
-                Apply(Sub(unused) Threading.Thread.Sleep(20)).
                 AndThen(Function(unused) ReadDataWithTimeout(
                             conn,
                             New Timeout With {
@@ -32,5 +30,5 @@ Namespace Tenma
                     .Output = Convert.ToInt32((data And &B1000000) = &B1000000)
                  })
         End Function
-    End Class
+    End Module
 End Namespace

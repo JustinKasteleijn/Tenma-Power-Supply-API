@@ -1,8 +1,8 @@
 ﻿Namespace Tenma
     Namespace Commands
         Friend Structure ReadDeviceIDCommand
-            Implements TenmaSerializable
-            Public Function ToCommand() As String Implements TenmaSerializable.ToCommand
+            Implements ITenmaSerializable
+            Public Function ToCommand() As String Implements ITenmaSerializable.ToCommand
                 Return "*IDN?"
             End Function
         End Structure

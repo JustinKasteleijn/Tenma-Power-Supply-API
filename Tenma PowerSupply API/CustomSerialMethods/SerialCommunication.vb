@@ -22,7 +22,7 @@ Namespace Tenma
             Return Result(Of Byte(), String).Err($"Timeout occurred while reading data from port {conn.PortName}. Please ensure that the peripheral device is powered on and connected. Additionally, consider increasing the timeout value to allow the peripheral more time to process the data!")
         End Function
 
-        Friend Function SendData(ByRef conn As SerialPort, data As TenmaSerializable) As Result(Of SerialPort, String)
+        Friend Function SendData(ByRef conn As SerialPort, data As ITenmaSerializable) As Result(Of SerialPort, String)
             Try
                 conn.Write(data.ToCommand())
                 Return Result(Of SerialPort, String).Ok(conn)
