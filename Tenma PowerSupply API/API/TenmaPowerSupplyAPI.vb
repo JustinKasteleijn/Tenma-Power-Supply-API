@@ -3,7 +3,7 @@ Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
-    Public Class PowerSupply
+    Public Class TenmaPowerSupply
         Private ReadOnly Connection As Lazy(Of SerialPort)
 
         Public Sub New(portname As String, baudrate As Integer)
