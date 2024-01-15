@@ -56,16 +56,16 @@ Namespace Tenma
             Return WriteBeep(Connection.Value, New WriteBeepStateCommand With {.State = state})
         End Function
 
-        Public Shared Function TurnOn(conn As SerialPort) As Result(Of State, String)
+        Public Function TurnOn() As Result(Of State, String)
             Return WritePowerState(
-                conn,
+                Connection.Value,
                 New WriteDevicePowerStateCommand With {.State = State.ON}
             )
         End Function
 
-        Public Shared Function TurnOff(conn As SerialPort) As Result(Of State, String)
+        Public Function TurnOff() As Result(Of State, String)
             Return WritePowerState(
-                conn,
+                Connection.Value,
                 New WriteDevicePowerStateCommand With {.State = State.OFF}
             )
         End Function
