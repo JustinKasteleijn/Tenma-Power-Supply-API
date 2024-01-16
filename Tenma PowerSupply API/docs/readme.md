@@ -47,14 +47,14 @@ Imports Tenma.Tenma.PowerSupply
 Module Main
     Sub Main()
         ' Create a new power supply instance
-        Dim powerSupply = New PowerSupply("COM4", 9600)
+        Dim powerSupply = New PowerSupply.Create("partnumber", "comport")
 
         ' Set the output voltage and current
         Dim setVoltageResult = powerSupply.SetOutputVoltage(12.5, Channels.One)
         Dim setCurrentResult = powerSupply.SetOutputCurrent(2.0, Channels.One)
 
         ' Check if setting voltage and current was successful
-        If setVoltageResult.IsSuccess AndAlso setCurrentResult.IsSuccess Then
+        If setVoltageResult.IsOk() AndAlso setCurrentResult.IsOk() Then
             Console.WriteLine("Voltage and current set successfully.")
         Else
             Console.WriteLine($"Failed to set voltage or current. Error: {setVoltageResult.ErrOr()} {setCurrentResult.ErrOr()}")
