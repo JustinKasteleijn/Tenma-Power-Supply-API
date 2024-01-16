@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Commands
+    Partial Friend Module Commands
         Friend Structure SwitchMemoryStateCommand
             Implements ITenmaSerializable
             Public MemoryNumber As MemoryNumber
@@ -7,5 +7,5 @@
                 Return $"RCL{CInt(MemoryNumber)}"
             End Function
         End Structure
-    End Namespace
+    End Module
 End Namespace

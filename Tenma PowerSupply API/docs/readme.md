@@ -4,6 +4,22 @@
 
 Welcome to the Tenma Power Supply API, a library for interacting with Tenma power supplies using a functional rust alike approach. This library is built using Visual Basic and Functional Extensions. It utilizes the serial port to communicate with the power supply.  
 
+## Supported Power Supplies
+
+| Part Number | Voltage Range | Current Range |
+|-------------|---------------|---------------|
+| 72-2535     | 0-30V          | 0-5A          |
+| 72-2540     | 0-30V          | 0-5A          |
+| 72-2545     | 0-60V          | 0-2A          |
+| 72-2550     | 0-30V          | 0-3A          |
+| 72-2925     | 0-60V          | 0-10A         |
+| 72-2930     | 0-30V          | 0-5A          |
+| 72-2935     | 0-60V          | 0-5A          |
+| 72-2940     | 0-30V          | 0-3A          |
+| 72-10480    | 0-30V          | 0-3A          |
+
+
+
 ## Features
 
 - **Functional Design**: The API follows a functional programming paradigm, providing a clean and expressive way to work with Tenma power supplies.

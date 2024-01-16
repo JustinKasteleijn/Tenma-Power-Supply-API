@@ -4,15 +4,12 @@ Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
     Partial Friend Module RemoteControlFunctions
-        Friend Function SetVoltage(conn As SerialPort, voltageSetting As WriteVoltageCommand) As Result(Of Decimal, String)
+        Friend Function SetVoltage(conn As SerialPort, voltageSetting As WriteVoltageCommand, partNumber As String) As Result(Of Decimal, String)
             Return OpenConnection(conn).
-                Assert(
-                    Function(unused) voltageSetting.CheckVoltageBetweenMinMax(),
-                    Function(unused) $"Voltage {voltageSetting.Voltage}V not between min: {WriteVoltageCommand.MIN}V max: {WriteVoltageCommand.MAX}V"
-                ).
+                And(WriteVoltageCommand.CheckVoltageBetweenMinMax(partNumber, voltageSetting.Voltage)).
                 AndThen(Function(unused) SendData(conn, voltageSetting)).
-                AndThen(Function(innerConn) ReadVoltageFromSettings(
-                            innerConn,
+                AndThen(Function(unused) ReadVoltageFromSettings(
+                            conn,
                             New ReadVoltageFromSettingsCommand With {
                                 .Channel = voltageSetting.Channel
                             }
@@ -23,8 +20,8 @@ Namespace Tenma
         Private Function ReadVoltage(Of T As ITenmaSerializable)(conn As SerialPort, voltageSetting As T) As Result(Of Decimal, String)
             Return OpenConnection(conn).
                     AndThen(Function(unused) SendData(conn, voltageSetting)).
-                    AndThen(Function(innerConn) ReadDataWithTimeout(
-                        innerConn,
+                    AndThen(Function(unused) ReadDataWithTimeout(
+                        conn,
                         New Timeout With {
                             .Interval = 50,
                             .TotalMilliseconds = 250

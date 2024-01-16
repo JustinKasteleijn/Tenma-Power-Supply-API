@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Commands
+    Partial Friend Module Commands
         Friend Structure WriteOVPStateCommand
             Implements ITenmaSerializable
             Public State As State
@@ -8,5 +8,5 @@
                 Return $"OVP{CInt(State)}"
             End Function
         End Structure
-    End Namespace
+    End Module
 End Namespace

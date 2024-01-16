@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Commands
+    Partial Friend Module Commands
         Public Structure WriteDevicePowerStateCommand
             Implements ITenmaSerializable
             Public State As State
@@ -8,5 +8,5 @@
                 Return $"OUT{CInt(State)}"
             End Function
         End Structure
-    End Namespace
+    End Module
 End Namespace

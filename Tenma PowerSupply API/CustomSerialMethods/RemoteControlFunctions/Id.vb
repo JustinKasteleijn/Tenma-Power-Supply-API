@@ -20,19 +20,13 @@ Namespace Tenma
                                 Dim seperated As String() = data.Split(" ")
                                 Return New DeviceID With {
                                     .Manufacturer = seperated(0),
-                                    .Model = seperated(1),
+                                    .PartNumber = seperated(1),
                                     .Version = Utils.StringToDecimal(
                                         seperated(2).Replace("V", "")
-                                    ).Match(
-                                        Function(d) d,
-                                        Function(err) 0
-                                    ),
+                                    ).UnwrapOr(0),
                                     .SerialNumber = Utils.StringToInt(
                                         String.Concat(seperated(3).Where(Function(c) Char.IsDigit(c)))
-                                    ).Match(
-                                        Function(d) d,
-                                        Function(err) 0
-                                    )
+                                    ).UnwrapOr(0)
                                 }
                             End Function)
         End Function

@@ -4,17 +4,14 @@ Imports Tenma_PowerSupply_API.Tenma.Commands
 
 Namespace Tenma
     Partial Friend Module RemoteControlFunctions
-        Friend Function SetCurrent(conn As SerialPort, currentSetting As WriteCurrentCommand) As Result(Of Decimal, String)
+        Friend Function SetCurrent(conn As SerialPort, currentSetting As WriteCurrentCommand, partNumber As String) As Result(Of Decimal, String)
             Return OpenConnection(conn).
-                Assert(
-                    Function(unused) currentSetting.CheckVoltageBetweenMinMax(),
-                    Function(unused) $"Voltage {currentSetting.Current}A not between min: {WriteCurrentCommand.MIN}A max: {WriteCurrentCommand.MAX}A"
-                ).
+                And(WriteCurrentCommand.CheckVoltageBetweenMinMax(partNumber, currentSetting.Current)).
                 AndThen(Function(unused) SendData(conn, currentSetting)).
                 Apply(Sub(unused) conn.Close()).
                 AndThen(Function(unused) ReadCurrentFromSettings(
                             conn,
-                            New ReadCurrentFromSettingsCommand With {
+                            currentSetting:=New ReadCurrentFromSettingsCommand With {
                                 .Channel = currentSetting.Channel
                             }
                         )

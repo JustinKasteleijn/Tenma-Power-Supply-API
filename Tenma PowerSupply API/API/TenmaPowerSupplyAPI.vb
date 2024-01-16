@@ -5,13 +5,32 @@ Imports Tenma_PowerSupply_API.Tenma.Commands
 Namespace Tenma
     Public Class TenmaPowerSupply
         Private ReadOnly Connection As Lazy(Of SerialPort)
+        Private ReadOnly PartNumber As String
 
-        Public Sub New(portname As String, baudrate As Integer)
+        Public Shared Function Create(partNumber As String, portname As String) As Result(Of TenmaPowerSupply, String)
+            Return Result(Of TenmaPowerSupply, String).Ok(
+                New TenmaPowerSupply(portname)
+            ).Assert(
+                Function(unused) SupportedPowerSupplies.IsSupported(partNumber),
+                Function() $"Device with partnumber: {partNumber} is not supported. Please refrence to readme.md or https://www.farnell.com/datasheets/3217055.pdf"
+            ).AndThen(
+                Function(tenma) tenma.
+                                    GetIdentification().
+                                    Assert(
+                                        Function(id) id.PartNumber = partNumber,
+                                        Function(id) $"Device returned unexcepted part number, Expected {partNumber}, Actual {id.PartNumber}."
+                                    ).Map(Function(x) tenma)
+            ).Apply(
+                Function(tenma) tenma.PartNumber = partNumber
+            )
+        End Function
+
+        Private Sub New(portname As String)
             Connection = New Lazy(Of SerialPort)(
                             Function()
                                 Return New SerialPort With {
                                     .PortName = portname,
-                                    .BaudRate = baudrate,
+                                    .BaudRate = 9600,
                                     .DataBits = 8,
                                     .StopBits = StopBits.One,
                                     .Parity = Parity.None,

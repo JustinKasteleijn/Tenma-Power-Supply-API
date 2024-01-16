@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Commands
+    Partial Friend Module Commands
         Friend Structure ReadVoltageFromSettingsCommand
             Implements ITenmaSerializable
             Public Channel As Channels
@@ -7,5 +7,5 @@
                 Return $"VSET{CInt(Channel)}?"
             End Function
         End Structure
-    End Namespace
+    End Module
 End Namespace

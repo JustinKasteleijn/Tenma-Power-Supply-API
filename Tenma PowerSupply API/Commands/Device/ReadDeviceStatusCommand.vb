@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Commands
+    Partial Friend Module Commands
         Friend Structure ReadDeviceStatusCommand
             Implements ITenmaSerializable
 
@@ -8,5 +8,5 @@
             End Function
         End Structure
 
-    End Namespace
+    End Module
 End Namespace

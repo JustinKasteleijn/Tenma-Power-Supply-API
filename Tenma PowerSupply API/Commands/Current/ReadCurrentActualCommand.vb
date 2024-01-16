@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Namespace Commands
+    Partial Friend Module Commands
         Friend Structure ReadCurrentActualCommand
             Implements ITenmaSerializable
             Public Channel As Channels
@@ -8,5 +8,5 @@
                 Return $"IOUT{CInt(Channel)}?"
             End Function
         End Structure
-    End Namespace
+    End Module
 End Namespace
