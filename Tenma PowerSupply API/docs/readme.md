@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the Tenma Power Supply API, a library for interacting with Tenma power supplies using a functional approach. This library is built using Visual Basic and Functional Extensions.
+Welcome to the Tenma Power Supply API, a library for interacting with Tenma power supplies using a functional rust alike approach. This library is built using Visual Basic and Functional Extensions. It utilizes the serial port to communicate with the power supply.  
 
 ## Features
 
@@ -10,6 +10,7 @@ Welcome to the Tenma Power Supply API, a library for interacting with Tenma powe
 - **Result Monad**: Robust error handling using the Result Monad, ensuring clear handling of success and failure scenarios.
 - **Immutable State**: The library leverages immutability to maintain a consistent and predictable flow of data through functional transformations.
 - **Ease of Use**: The API is designed to be user-friendly, allowing developers to perform common operations with ease.
+- **Railway oriented programming** Utilizes the principle of railway oriented programming in order to communicate safely with the hardware. 
 
 ## Installation
 
