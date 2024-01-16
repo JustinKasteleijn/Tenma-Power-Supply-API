@@ -10,6 +10,7 @@
 		<Authors>Justin Kasteleijn</Authors>
 		<Description>Welcome to the Tenma Power Supply API, a library for interacting with Tenma power supplies using a functional approach. This library is built using Visual Basic and Functional Extensions.</Description>
 		<Copyright>MIT</Copyright>
+		<PackageIcon>Screenshot_1.png</PackageIcon>
 		<PackageTags>Tenma; PowerSupply; VisualBasic; Functional; EasyToUse;</PackageTags>
 		<PackageReleaseNotes>First release</PackageReleaseNotes>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
@@ -22,8 +23,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\..\..\..\Pictures\Screenshot_1.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="System.IO.Ports" Version="8.0.0" />
-		<PackageReference Include="VisualBasicFunctionalExtensions" Version="1.0.1" />
+		<PackageReference Include="VisualBasicFunctionalExtensions" Version="1.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
