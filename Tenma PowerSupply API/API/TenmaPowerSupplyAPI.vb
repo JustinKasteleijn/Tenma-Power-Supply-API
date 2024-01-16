@@ -1,4 +1,4 @@
-﻿Imports System.IO.Ports
+Imports System.IO.Ports
 Imports FunctionalExtensions.Functional
 Imports Tenma_PowerSupply_API.Tenma.Commands
 
@@ -42,10 +42,13 @@ Namespace Tenma
         End Sub
 
         Public Function SetOutputCurrent(current As Decimal, channel As Channels) As Result(Of Decimal, String)
-            Return SetCurrent(Connection.Value, New WriteCurrentCommand With {
+            Return SetCurrent(Connection.Value,
+                              New WriteCurrentCommand With {
                                   .Current = current,
                                   .Channel = channel
-                                  })
+                                  },
+                              PartNumber
+                   )
         End Function
 
         Public Function GetOutputCurrentFromSettings(channel As Channels) As Result(Of Decimal, String)
@@ -57,10 +60,13 @@ Namespace Tenma
         End Function
 
         Public Function SetOutputVoltage(voltage As Decimal, channel As Channels) As Result(Of Decimal, String)
-            Return SetVoltage(Connection.Value, New WriteVoltageCommand With {
-                .Voltage = voltage,
-                .Channel = channel
-            })
+            Return SetVoltage(Connection.Value,
+                              New WriteVoltageCommand With {
+                                    .Voltage = voltage,
+                                    .Channel = channel
+                              },
+                              PartNumber
+                    )
         End Function
 
         Public Function GetOutputVoltageFromSettings(channel As Channels) As Result(Of Decimal, String)
