@@ -6,13 +6,13 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>Tenma-PowerSupply-API</PackageId>
 		<Title>Tenma PowerSupply API</Title>
-		<Version>0.0.1</Version>
+		<Version>0.1.0</Version>
 		<Authors>Justin Kasteleijn</Authors>
 		<Description>Welcome to the Tenma Power Supply API, a library for interacting with Tenma power supplies using a functional approach. This library is built using Visual Basic and Functional Extensions.</Description>
 		<Copyright>MIT</Copyright>
 		<PackageIcon>Screenshot_1.png</PackageIcon>
 		<PackageTags>Tenma; PowerSupply; VisualBasic; Functional; EasyToUse;</PackageTags>
-		<PackageReleaseNotes>First release</PackageReleaseNotes>
+		<PackageReleaseNotes>First semi stable release! Have tested it with a Tenma model 72-2550 connected, no others yet. Also need to implement unit tests for all the functions, I will do this if the usage of the library is significant enough :)! </PackageReleaseNotes>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<AnalysisLevel>latest-recommended</AnalysisLevel>
@@ -20,6 +20,7 @@
 		<RepositoryUrl>https://github.com/JustinKasteleijn/Tenma-Power-Supply-API</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>docs\license.md</PackageLicenseFile>
+		<ImportedNamespaces>Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Tenma PowerSupply API=True</ImportedNamespaces>
 	</PropertyGroup>
 
 	<ItemGroup>

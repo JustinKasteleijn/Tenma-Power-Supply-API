@@ -1,5 +1,5 @@
 ﻿Namespace Tenma
-    Public Structure TenmaReturnValue(Of T)
+    Public Structure TenmaResponse(Of T)
         Public tenmaPowerSupply As TenmaPowerSupply
         Public result As T
     End Structure
