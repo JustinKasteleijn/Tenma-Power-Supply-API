@@ -11,11 +11,11 @@ Namespace Tenma
                         Map(Function(unused) True)
         End Function
 
-        Friend Function _SwitchMemoryState(conn As SerialPort, command As SwitchMemoryStateCommand) As Result(Of Boolean, String)
+        Friend Function _SwitchMemoryState(conn As SerialPort, command As SwitchMemoryStateCommand) As Result(Of MemoryNumber, String)
             Return OpenConnection(conn).
                         AndThen(Function(unused) SendData(conn, command)).
                         Apply(Sub(unused) conn.Close()).
-                        Map(Function(unused) True)
+                        Map(Function(unused) command.MemoryNumber)
         End Function
 
         Friend Function WriteOCP(conn As SerialPort, command As WriteOCPStateCommand) As Result(Of State, String)

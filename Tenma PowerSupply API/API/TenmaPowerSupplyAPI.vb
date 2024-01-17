@@ -17,8 +17,8 @@ Namespace Tenma
                 Function(tenma) tenma.
                                     GetIdentification().
                                     Assert(
-                                        Function(id) id.PartNumber = partNumber,
-                                        Function(id) $"Device returned unexcepted part number, Expected {partNumber}, Actual {id.PartNumber}."
+                                        Function(res) res.result.PartNumber = partNumber,
+                                        Function(res) $"Device returned unexcepted part number, Expected {partNumber}, Actual {res.result.PartNumber}."
                                     ).Map(Function(x) tenma)
             )
         End Function
@@ -40,82 +40,138 @@ Namespace Tenma
             Me.PartNumber = partNumber
         End Sub
 
-        Public Function SetOutputCurrent(current As Decimal, channel As Channels) As Result(Of Decimal, String)
+        Public Function SetOutputCurrent(current As Decimal, channel As Channels) As Result(Of TenmaReturnValue(Of Decimal), String)
             Return SetCurrent(Connection.Value,
                               New WriteCurrentCommand With {
                                   .Current = current,
                                   .Channel = channel
                                   },
                               PartNumber
-                   )
+                   ).Map(Function(result) New TenmaReturnValue(Of Decimal) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function GetOutputCurrentFromSettings(channel As Channels) As Result(Of Decimal, String)
-            Return ReadCurrentFromSettings(Connection.Value, New ReadCurrentFromSettingsCommand With {.Channel = channel})
+        Public Function GetOutputCurrentFromSettings(channel As Channels) As Result(Of TenmaReturnValue(Of Decimal), String)
+            Return ReadCurrentFromSettings(Connection.Value, New ReadCurrentFromSettingsCommand With {.Channel = channel}).
+                Map(Function(result) New TenmaReturnValue(Of Decimal) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function GetActualOutputCurrent(channel As Channels) As Result(Of Decimal, String)
-            Return ReadActualCurrent(Connection.Value, New ReadCurrentActualCommand With {.Channel = channel})
+        Public Function GetActualOutputCurrent(channel As Channels) As Result(Of TenmaReturnValue(Of Decimal), String)
+            Return ReadActualCurrent(Connection.Value, New ReadCurrentActualCommand With {.Channel = channel}).
+                Map(Function(result) New TenmaReturnValue(Of Decimal) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function SetOutputVoltage(voltage As Decimal, channel As Channels) As Result(Of Decimal, String)
+        Public Function SetOutputVoltage(voltage As Decimal, channel As Channels) As Result(Of TenmaReturnValue(Of Decimal), String)
             Return SetVoltage(Connection.Value,
                               New WriteVoltageCommand With {
                                     .Voltage = voltage,
                                     .Channel = channel
                               },
                               PartNumber
-                    )
+                    ).Map(Function(result) New TenmaReturnValue(Of Decimal) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function GetOutputVoltageFromSettings(channel As Channels) As Result(Of Decimal, String)
-            Return ReadVoltageFromSettings(Connection.Value, New ReadVoltageFromSettingsCommand With {.Channel = channel})
+        Public Function GetOutputVoltageFromSettings(channel As Channels) As Result(Of TenmaReturnValue(Of Decimal), String)
+            Return ReadVoltageFromSettings(Connection.Value, New ReadVoltageFromSettingsCommand With {.Channel = channel}).
+                Map(Function(result) New TenmaReturnValue(Of Decimal) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function GetActualOutputVoltage(channel As Channels) As Result(Of Decimal, String)
-            Return ReadActualVoltage(Connection.Value, New ReadVoltageActualCommand With {.Channel = channel})
+        Public Function GetActualOutputVoltage(channel As Channels) As Result(Of TenmaReturnValue(Of Decimal), String)
+            Return ReadActualVoltage(Connection.Value, New ReadVoltageActualCommand With {.Channel = channel}).
+                Map(Function(result) New TenmaReturnValue(Of Decimal) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function SetBeep(state As State) As Result(Of State, String)
-            Return WriteBeep(Connection.Value, New WriteBeepStateCommand With {.State = state})
+        Public Function SetBeep(state As State) As Result(Of TenmaReturnValue(Of State), String)
+            Return WriteBeep(Connection.Value, New WriteBeepStateCommand With {.State = state}).
+                Map(Function(result) New TenmaReturnValue(Of State) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function TurnOn() As Result(Of State, String)
+        Public Function TurnOn() As Result(Of TenmaReturnValue(Of State), String)
             Return WritePowerState(
                 Connection.Value,
                 New WriteDevicePowerStateCommand With {.State = State.ON}
-            )
+            ).Map(Function(result) New TenmaReturnValue(Of State) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function TurnOff() As Result(Of State, String)
+        Public Function TurnOff() As Result(Of TenmaReturnValue(Of State), String)
             Return WritePowerState(
                 Connection.Value,
                 New WriteDevicePowerStateCommand With {.State = State.OFF}
-            )
+            ).Map(Function(result) New TenmaReturnValue(Of State) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function GetStatus() As Result(Of DeviceStatus, String)
-            Return ReadStatus(Connection.Value)
+        Public Function GetStatus() As Result(Of TenmaReturnValue(Of DeviceStatus), String)
+            Return ReadStatus(Connection.Value).
+                Map(Function(result) New TenmaReturnValue(Of DeviceStatus) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function GetIdentification() As Result(Of DeviceID, String)
-            Return ReadDeviceID(Connection.Value)
+        Public Function GetIdentification() As Result(Of TenmaReturnValue(Of DeviceID), String)
+            Return ReadDeviceID(Connection.Value).
+                Map(Function(result) New TenmaReturnValue(Of DeviceID) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function SwitchMemoryState(memoryNumber As MemoryNumber) As Result(Of Boolean, String)
-            Return _SwitchMemoryState(Connection.Value, New SwitchMemoryStateCommand With {.MemoryNumber = memoryNumber})
+        Public Function SwitchMemoryState(memoryNumber As MemoryNumber) As Result(Of TenmaReturnValue(Of MemoryNumber), String)
+            Return _SwitchMemoryState(Connection.Value, New SwitchMemoryStateCommand With {.MemoryNumber = memoryNumber}).
+                Map(Function(result) New TenmaReturnValue(Of MemoryNumber) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function SaveMemorySettings(memoryNumber As MemoryNumber) As Result(Of Boolean, String)
-            Return _SaveMemorySettings(Connection.Value, New SaveMemorySettingCommand With {.MemoryNumber = memoryNumber})
+        Public Function SaveMemorySettings(memoryNumber As MemoryNumber) As Result(Of TenmaReturnValue(Of Boolean), String)
+            Return _SaveMemorySettings(Connection.Value, New SaveMemorySettingCommand With {.MemoryNumber = memoryNumber}).
+                Map(Function(result) New TenmaReturnValue(Of Boolean) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function SetOPC(state As State) As Result(Of State, String)
-            Return WriteOCP(Connection.Value, New WriteOCPStateCommand With {.State = state})
+        Public Function SetOPC(state As State) As Result(Of TenmaReturnValue(Of State), String)
+            Return WriteOCP(Connection.Value, New WriteOCPStateCommand With {.State = state}).
+                Map(Function(result) New TenmaReturnValue(Of State) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
-        Public Function SetOVP(state As State) As Result(Of State, String)
-            Return WriteOVP(Connection.Value, New WriteOVPStateCommand With {.State = state})
+        Public Function SetOVP(state As State) As Result(Of TenmaReturnValue(Of State), String)
+            Return WriteOVP(Connection.Value, New WriteOVPStateCommand With {.State = state}).
+                Map(Function(result) New TenmaReturnValue(Of State) With {
+                        .result = result,
+                        .tenmaPowerSupply = Me
+                   })
         End Function
 
     End Class
