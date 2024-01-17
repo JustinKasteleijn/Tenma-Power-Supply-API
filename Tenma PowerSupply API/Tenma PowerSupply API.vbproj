@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="System.IO.Ports" Version="8.0.0" />
-		<PackageReference Include="VisualBasicFunctionalExtensions" Version="1.0.0" />
+		<PackageReference Include="VisualBasicFunctionalExtensions" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -9,7 +9,7 @@ Namespace Tenma
 
         Public Shared Function Create(partNumber As String, portname As String) As Result(Of TenmaPowerSupply, String)
             Return Result(Of TenmaPowerSupply, String).Ok(
-                New TenmaPowerSupply(portname)
+                New TenmaPowerSupply(portname, partNumber)
             ).Assert(
                 Function(unused) SupportedPowerSupplies.IsSupported(partNumber),
                 Function() $"Device with partnumber: {partNumber} is not supported. Please refrence to readme.md or https://www.farnell.com/datasheets/3217055.pdf"
@@ -20,13 +20,11 @@ Namespace Tenma
                                         Function(id) id.PartNumber = partNumber,
                                         Function(id) $"Device returned unexcepted part number, Expected {partNumber}, Actual {id.PartNumber}."
                                     ).Map(Function(x) tenma)
-            ).Apply(
-                Function(tenma) tenma.PartNumber = partNumber
             )
         End Function
 
-        Private Sub New(portname As String)
-            Connection = New Lazy(Of SerialPort)(
+        Private Sub New(portname As String, partNumber As String)
+            Me.Connection = New Lazy(Of SerialPort)(
                             Function()
                                 Return New SerialPort With {
                                     .PortName = portname,
@@ -39,6 +37,7 @@ Namespace Tenma
                                     .WriteTimeout = 10000
                                 }
                             End Function)
+            Me.PartNumber = partNumber
         End Sub
 
         Public Function SetOutputCurrent(current As Decimal, channel As Channels) As Result(Of Decimal, String)

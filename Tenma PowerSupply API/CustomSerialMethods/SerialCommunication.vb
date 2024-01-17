@@ -23,8 +23,13 @@ Namespace Tenma
         End Function
 
         Friend Function SendData(ByRef conn As SerialPort, data As ITenmaSerializable) As Result(Of SerialPort, String)
+            Return SendDataWithTimeout(conn, data, 20)
+        End Function
+
+        Friend Function SendDataWithTimeout(ByRef conn As SerialPort, data As ITenmaSerializable, processTime As Integer) As Result(Of SerialPort, String)
             Try
                 conn.Write(data.ToCommand())
+                Thread.Sleep(processTime)
                 Return Result(Of SerialPort, String).Ok(conn)
             Catch ex As InvalidOperationException
                 Return Result(Of SerialPort, String).Err($"Com Port is closed {vbNewLine}{ex.Message}")

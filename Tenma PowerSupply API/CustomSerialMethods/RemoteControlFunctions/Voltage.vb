@@ -23,8 +23,8 @@ Namespace Tenma
                     AndThen(Function(unused) ReadDataWithTimeout(
                         conn,
                         New Timeout With {
-                            .Interval = 50,
-                            .TotalMilliseconds = 250
+                            .Interval = 100,
+                            .TotalMilliseconds = 1000
                         }
                     )).
                     Apply(Sub(unused) conn.Close()).

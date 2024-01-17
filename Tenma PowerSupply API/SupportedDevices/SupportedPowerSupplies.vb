@@ -27,11 +27,10 @@ Namespace Tenma
                     Select(Function(pair) pair.Value.VoltageRange).
                     FirstOrDefault()
 
-                If voltageRange IsNot Nothing Then
-                    Return Result(Of Range, String).Ok(voltageRange)
-                Else
+                If voltageRange Is Nothing Then
                     Return Result(Of Range, String).Err($"Part number '{partNumber}' not found.")
                 End If
+                Return Result(Of Range, String).Ok(voltageRange)
             Catch ex As Exception
                 Return Result(Of Range, String).Err($"Error retrieving voltage range: {ex.Message}")
             End Try
@@ -65,7 +64,7 @@ Namespace Tenma
                          }
             },
             {"72-2550", New Ranges With {
-                            .VoltageRange = New Range With {.Min = 0, .Max = 30},
+                            .VoltageRange = New Range With {.Min = 0, .Max = 60},
                             .CurrentRange = New Range With {.Min = 0, .Max = 3}
                          }
             },
